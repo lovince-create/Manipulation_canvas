@@ -1,0 +1,128 @@
+<pre>
+<div id="conteneur">
+<button>Debut X:<input id="origx" class="entree" type="number" size="20"/>
+Debut Y:<input id="origy" class="entree" type="number" size="20"/></button>
+
+<button>2X:<input id="finx" class="entree" type="number" size="20"/>
+2Y:<input id="finy" class="entree" type="number" size="20"/>
+<input id="couleur" type="color"/></button>
+<button onclick="plus()"/>Ajouter<button onclick="trace()">Tracer</button><button onclick="efface()">Effacer</button><select id="forme_fond">
+<option value="A">Fond transparent</option>
+<option value="B">Fond plein</option>
+</select>
+</div>
+<canvas id="canv" width="300" height="300" style="border:2px solid red"></canvas>
+</pre>
+<script>
+var canvas = document.getElementById("canv");
+var ctx = canvas.getContext("2d");
+var boutons = [];
+var compteur = 1;
+function trace()
+{
+	var entre = document.getElementsByClassName("entree");
+	var size = entre.length;
+	console.log(entre.length);
+	
+	if(size == 4)
+	{
+		ctx.strokeStyle = couleur.value;
+		ctx.beginPath();
+		ctx.lineTo(origx.value,origy.value);
+		ctx.lineTo(finx.value,finy.value);
+		ctx.closePath();
+		ctx.stroke();
+	}
+	if(size == 6)
+	{
+		ctx.strokeStyle = couleur.value;
+		ctx.beginPath();
+		ctx.lineTo(origx.value,origy.value);
+		ctx.lineTo(entre[4].value,entre[5].value);
+		ctx.lineTo(finx.value,finy.value);
+		
+		ctx.closePath();
+	}
+	if(size == 8)
+	{
+	ctx.strokeStyle = couleur.value;
+	ctx.beginPath();
+	ctx.lineTo(origx.value,origy.value);
+	ctx.lineTo(entre[4].value,entre[5].value);
+	ctx.lineTo(entre[6].value,entre[7].value);
+	ctx.lineTo(finx.value,finy.value);
+	
+	ctx.closePath();
+	}
+	if(forme_fond.value == "A")
+	{
+		ctx.stroke();
+	}else
+	{
+		ctx.fill();
+	}
+}
+function efface()
+{
+	ctx.clearRect(0,0,canvas.width,canvas.height);
+}
+function plus()
+{
+if(compteur == 1)
+{
+	boutons[0] = document.createElement("button");
+	conteneur.appendChild(boutons[0]);
+	
+	label1 = document.createElement("label");
+	label1.appendChild(document.createTextNode("3X:"));
+	entry1 = document.createElement("input");
+	entry1.id = "x0";
+	entry1.className ="entree";
+	entry1.type = "number";
+	
+	label2 = document.createElement("label");
+	label2.appendChild(document.createTextNode("3Y:"));
+	entry2 = document.createElement("input");
+	entry2.id = "y0";
+	entry2.className = "entree";
+	entry2.type = "number";
+	
+	boutons[0].appendChild(label1);
+	boutons[0].appendChild(entry1);
+	boutons[0].appendChild(document.createElement("br"));
+	boutons[0].appendChild(label2);
+	boutons[0].appendChild(entry2);
+	conteneur.appendChild(document.createElement("br"));
+	var entre = document.getElementsByClassName("entree");
+	console.log(entre.length);
+}else if(compteur == 2)
+{
+    boutons[1] = document.createElement("button");
+    conteneur.appendChild(boutons[1]);
+
+    label3 = document.createElement("label");
+    label3.appendChild(document.createTextNode("4X:"));
+    entry3 = document.createElement("input");
+    entry3.id = "x1";
+    entry3.className ="entree";
+    entry3.type = "number";
+
+    label4 = document.createElement("label");
+    label4.appendChild(document.createTextNode("4Y:"));
+    entry4 = document.createElement("input");
+    entry4.id = "y1";
+    entry4.className = "entree";
+    entry4.type = "number";
+
+    boutons[1].appendChild(label3);
+    boutons[1].appendChild(entry3);
+    boutons[1].appendChild(document.createElement("br"));
+    boutons[1].appendChild(label4);
+    boutons[1].appendChild(entry4);
+  }
+compteur += 1;
+var entre = document.getElementsByClassName("entree");
+console.log(entre.length+"-"+compteur);
+}
+</script>
+<style>
